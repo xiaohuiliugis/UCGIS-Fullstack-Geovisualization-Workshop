@@ -1,5 +1,6 @@
 # Full-stack Geo-visualization 101: How to Make Productive Webmaps
 
+
 The ability to visualize large amounts of information in real time on interactive maps has never been more important for GI scientists and specialists.  Web-based and open-source platforms, such as the mapping library leaflet and the noSQL database MongoDB, are becoming more popular and useful for their real-time functionality. 
 
 This workshop will serve as an introductory technical training on full-stack geo-visualization. The workshop will include an overview of web-based platforms, mapping libraries, and the backend infrastructure. During this interactive and hands-on session, all participants will have a chance to build a small web map project with a provided data pack. The whole process of programming and debugging will be demonstrated. There will be time for both development and answering questions that participants may have.
@@ -165,3 +166,50 @@ Also remember that we talked about the dependencies between your JS code and dif
 
 Until here, we almost finish populating the main structures of the HTML file. 
 
+## Adding to the JavaScript Code
+JavaScript is like the *muscles* and *senses*: it can act and react. So, next part and the most important part will be how to write the JS code.
+
+First thing first, we need to implement our Leaflet map object. First add this code to the *main.js* file.
+
+```javascript
+var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+```
+
+
+## Data reference
+
+The data are downloaded from [here](https://data.world/timothyrenner/ufo-sightings).
+
+<style>
+h1 { counter-reset: h2counter; }
+h2 { counter-reset: h3counter; }
+h3 { counter-reset: h4counter; }
+h4 { counter-reset: h5counter; }
+h5 { counter-reset: h6counter; }
+h6 {}
+
+h2:before {
+    counter-increment: h2counter;
+    content: counter(h2counter) ".\0000a0\0000a0";
+}
+
+h3:before {
+    counter-increment: h3counter;
+    content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+}
+
+h4:before {
+    counter-increment: h4counter;
+    content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) ".\0000a0\0000a0";
+}
+
+h5:before {
+    counter-increment: h5counter;
+    content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) ".\0000a0\0000a0";
+}
+
+h6:before {
+    counter-increment: h6counter;
+    content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) "." counter(h6counter) ".\0000a0\0000a0";
+}
+</style>
