@@ -28,7 +28,11 @@ L.polygon([
     [40, -75]
 ]).addTo(mymap).bindPopup("I am an alone polygon.");
 
+$.get("https://luyuliu.github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/UFO.geojson", visualize_geojson)
 
+function visualize_geojson(data){
+    
+}
 
 var popup = L.popup();
 
