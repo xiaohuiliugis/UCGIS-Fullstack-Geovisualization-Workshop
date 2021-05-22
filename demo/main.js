@@ -13,20 +13,21 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
-// L.marker([51.5, -0.09]).addTo(mymap)
-//     .bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+L.marker([41, -100]).addTo(mymap)
+    .bindPopup("<b>Hello world!</b><br />I am an alone popup.").openPopup();
 
-L.circle([51.508, -0.11], 500, {
+L.circle([42, -90], 50000, {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5
-}).addTo(mymap).bindPopup("I am a circle.");
+}).addTo(mymap).bindPopup("I am an alone circle.");
 
-// L.polygon([
-//     [51.509, -0.08],
-//     [51.503, -0.06],
-//     [51.51, -0.047]
-// ]).addTo(mymap).bindPopup("I am a polygon.");
+L.polygon([
+    [45, -90],
+    [51.503, -85],
+    [40, -75]
+]).addTo(mymap).bindPopup("I am an alone polygon.");
+
 
 
 var popup = L.popup();

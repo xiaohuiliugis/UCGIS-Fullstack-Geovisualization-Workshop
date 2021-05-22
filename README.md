@@ -27,7 +27,24 @@ You can find [a full software checklist walkthrough video here](https://www.yout
 - [GitHub Desktop](https://desktop.github.com/) and a GitHub account which can be created from [here](https://github.com/)
 - [Firefox Browser Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
 - Add [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to your firefox developer edition
-- Demo package: The relevant demo and data files can be found in this GitHub Repo. All files will be updated before the workshop.
+
+After you register and confirm your GitHub account, we need to fork [this repository](https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop) and click on the "fork" button to the right. Now you should have a repository with the same name but under your username. We will do everything in **your own forked repository**. Your own repo's URL should look like `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop`
+
+After cloned your repo, go to GitHub desktop and log in with your credential. We will need to add your repo to your local machine. To do this:
+- Click on *file* in the banner menu.
+- Click *clone repository*.
+- Find the repo .`UCGIS-Fullstack-Geovisualization-Workshop` in the list, or, search in the search bar.
+- Specify the location. You can also just leave to the default.
+- Click *clone* button. Then the software will clone your repo to the local disk.
+- The GitHub Desktop will ask you *"how are you planning to use this fork?"*. You should answer *"For my own purposes"*.
+
+We also need to set up your **GitHub page**. Go to your own repo's URL (should look like `https://github.com/[insert your username]/UCGIS-Fullstack-Geovisualization-Workshop/settings/pages`). You should see the GitHub Pages setting. If not, you can also go to the main page of your repo and click *"Settings"* and go to "*Pages*". 
+
+Now under "*Source*", choose branch as main, and click "*Save*" button.
+
+A few minutes later, you should be able to access the content in your repo. For example, try the two things below:
+- You can try to download the UFO witness data with a URL like this `https://[insert your username].github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/UFO.geojson`. Your browser should be able to download as a file.
+- You can try to access `https://[insert your username].github.io/UCGIS-Fullstack-Geovisualization-Workshop/demo/` to try a demo map I made. We will host your final product in a similar manner.
 
 ### Backend Part
 You will need administrator privilege for the backend part.
@@ -41,17 +58,7 @@ Right click on the Start button and open Windows Powershell. Type in `pip3 insta
 
 After learning about the basics of a webpage and a webmap, we will start to actually build a simple webmap from scratch. 
 
-But before everything, we need to fork [this repository](https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop) and click on the "fork" button to the right. Now you should have a repository with the same name but under your username. We will do everything in **your own forked repository**. Your own repo's URL should look like `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop`
-
-After cloned your repo, go to GitHub desktop and log in with your credential. We will need to add your repo to your local machine. To do this:
-- Click on *file* in the banner menu.
-- Click *clone repository*.
-- Find the repo .`UCGIS-Fullstack-Geovisualization-Workshop` in the list, or, search in the search bar.
-- Specify the location. You can also just leave to the default.
-- Click *clone* button. Then the software will clone your repo to the local disk.
-- The GitHub Desktop will ask you *"how are you planning to use this fork?"*. You should answer *"For my own purposes"*.
-
-Then you can click on *"Open in Visual Studio Code"* and *"Show in explorer"* to open the repo in your VSCode and the file explorer.
+You can first open your GitHub Desktop and choose your cloned repo. Click on *"Open in Visual Studio Code"* and *"Show in explorer"* to open the repo in your VSCode and the file explorer.
 
 ## Create files
 ### Create HTML
@@ -166,19 +173,116 @@ Also remember that we talked about the dependencies between your JS code and dif
 
 Until here, we almost finish populating the main structures of the HTML file. 
 
-## Adding to the JavaScript Code
+## Set up JavaScript Code
 JavaScript is like the *muscles* and *senses*: it can act and react. So, next part and the most important part will be how to write the JS code.
 
 First thing first, we need to implement our Leaflet map object. First add this code to the *main.js* file.
 
 ```javascript
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+var mymap = L.map('mapid').setView([40, -97], 5);
 ```
 
+The JS variable *mymap* will be the Leaflet map object. We will conduct most operations on it. 
 
-## Data reference
+Next, we will first add a base layer to the map. There are a lot of base layer to select, but we will choose a mapbox OSM base layer. 
 
-The data are downloaded from [here](https://data.world/timothyrenner/ufo-sightings).
+```javascript
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1
+}).addTo(mymap);
+```
+
+This is clearly a long clause! But you do not really need digest all of them in one take. But let's just break it down:
+- `L.tileLayer` is the function to define a tile layer for Leaflet, which is indicated by *"L"*. Inside this function, there are two parameters:
+  - First is the URL of the base layer. You do not have to understand this.
+  - Second is a parameter object structure that contains many other parameters. Again, you do not have understand all of them.
+    - maxZoom sets the maximum zoom level.
+    - attribution sets the attribution information.
+    - id sets the id of the layer.
+    - tileSize sets the tile size.
+    - zoomOffset sets the zoom number used in tile URLs will be offset with this value.
+- `addTo(mymap)` will add the layer to the Leaflet map object so that the layer can show on the map.
+
+Till here, we already have a webmap with base layer that you can play with! You should open the HTML file we just created in the Firefox browser developer edition. To do this, right click on the *index.html* file and select *"open with"* Firefox browser developer edition. Try zooming in, out, and panning!
+
+## Adding three basic symbologies
+Base layer is definitely not enough. A very important job for webmap is to visualize vector symbologies and show relevant attributes. Next. we are going to show you how to add three basic symbologies to the map.
+
+### Point marker
+Let's continue our JS file by typing code below the existing codes.
+
+```javascript
+L.marker([41, -100]).addTo(mymap)
+    .bindPopup("<b>Hello world!</b><br />I am an alone popup.").openPopup();
+```
+JavaScript supports *"function chaining"*, which means you can call multiple methods consecuitively. We are going to break down this long chain a little bit:
+- We first define our marker by using `L.marker` at `[41, -100]`
+- Then, like the base layer, we can directly add the newly created object to the `mymap` object. 
+- Later, `bindPopup` will bind a popup to this marker, with the content `"<b>Hello world!</b><br />I am an alone popup."`. A popup is a very useful information box; it will literally pop up when you click on the object which you bind the popup to.
+- The last function `openPopup()` will automatically activate the popup once you open the webpage, without clicking the object.
+
+### Polygon and circle
+
+Likewise, you can also call create polygon and circle function in a similar manner.
+
+```javascript
+L.circle([42, -90], 50000, {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5
+}).addTo(mymap).bindPopup("I am an alone circle.");
+
+L.polygon([
+    [45, -90],
+    [51.503, -85],
+    [40, -75]
+]).addTo(mymap).bindPopup("I am an alone polygon.");
+```
+
+Only the circle is kind of special if you noticed. `L.circle` has three parameters in this function: center (organized in a list of [lat, lon] or [y, x]), radius (in meters), and other options. Let's break down again:
+
+- color is the **border color**. You can also use HEX color code.
+- fillColor is the **fill color**, literally. 
+- fillOpacity is the transparency of the fill color.
+
+There are more options available that you can change; check [here](https://leafletjs.com/reference-1.7.1.html#circle).
+
+## Adding a geoJSON layer
+
+Clearly, it is not sustainable to add every symbology manually or direcly in the JS code. We will need a more efficient way to add data. geoJSON is a very readable (relatively) and accessible geodata format. It is essentially a [JSON file](https://en.wikipedia.org/wiki/JSON), but for geographic information; therefore, you can directly visualize it in most (especially open-source) GIS software.
+
+### Preparing your dataset
+First let's talk about data. I already prepared a point geoJSON in the */data* folder in your repo, which shows the UFO witness data in the US during 2019/03. 
+
+However, a local dataset is not accessible for online users. We will need move this local dataset to online so that our website can use this. Also remember that **CORS restrition** that will not allow us to access to a different domain, so we will need host the dataset in our own domain, which is the same domain where we will host our website. Clearly, GitHub page is a good choice.
+
+### Setting your GitHub page
+If you have not done this, you should go to your own repo's URL (should look like `https://github.com/[insert your username]/UCGIS-Fullstack-Geovisualization-Workshop/settings/pages`). You should see the GitHub Pages setting. If not, you can also go to the main page of your repo and click *"Settings"* and go to "*Pages*". 
+
+Now under "*Source*", choose branch as main, and click "*Save*" button.
+
+A few minutes later, you should be able to access the content in your repo. For example, try the two things below:
+- You can try to download the UFO witness data with a URL like this `https://[insert your username].github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/UFO.geojson`. Your browser should be able to download as a file.
+- You can try to access `https://[insert your username].github.io/UCGIS-Fullstack-Geovisualization-Workshop/demo/` to try a demo map I made. We will host your final product in a similar manner.
+
+You can access your dataset by using `https://[insert your username].github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/UFO.geojson`
+
+### Using your data
+Since you hosted the data in your repo, you can use it! Add this code to your main.js file.
+
+```javascript
+
+
+```
+
+# Data reference
+
+The UFO witness data are downloaded from [here](https://data.world/timothyrenner/ufo-sightings). The geoJSON is visualized and exported by QGIS; only data in the US and during 2019/03 were selected.
 
 <style>
 h1 { counter-reset: h2counter; }
