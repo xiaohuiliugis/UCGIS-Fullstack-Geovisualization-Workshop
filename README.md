@@ -276,8 +276,22 @@ You can access your dataset by using `https://[insert your username].github.io/U
 Since you hosted the data in your repo, you can use it! Add this code to your main.js file.
 
 ```javascript
+$.get("https://luyuliu.github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/UFO.geojson", visualize_geojson)
 
-
+function visualize_geojson(data) {
+    L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, {
+                radius: 8,
+                fillColor: "#ff7800",
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+        }
+    }).addTo(mymap);
+}
 ```
 
 # Data reference
