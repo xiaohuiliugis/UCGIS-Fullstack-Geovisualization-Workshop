@@ -32,24 +32,25 @@ $.get("https://luyuliu.github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/
 
 function visualize_geojson(data) {
     L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius: 8,
-                fillColor: "#ff7800",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            });
-        }
+        pointToLayer: convert_point_to_symbol
     }).addTo(mymap);
+}
+
+function convert_point_to_symbol(feature, latlng) {
+    return L.circleMarker(latlng, {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    });
 }
 
 var popup = L.popup();
 
 function onMapClick(e) {
-    popup
-        .setLatLng(e.latlng)
+    popup.setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
 }

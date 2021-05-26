@@ -280,19 +280,83 @@ $.get("https://luyuliu.github.io/UCGIS-Fullstack-Geovisualization-Workshop/data/
 
 function visualize_geojson(data) {
     L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius: 8,
-                fillColor: "#ff7800",
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            });
-        }
+        pointToLayer: convert_point_to_symbol
     }).addTo(mymap);
 }
+
+function convert_point_to_symbol(feature, latlng) {
+    return L.circleMarker(latlng, {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    });
+}
 ```
+
+This is surely the longest code we ever add to this map! Let's break it down.
+
+First line does two things: 
+- It uses `$.get(url, callback)` function in jQuery to retrieve the geoJSON data from the URL of GitHub page (in this case, it's in my repo so it's under the `luyuliu.github.io` domain).
+- It sets the function `visualize_geojson` as the function to handle the returned data.
+
+Remember that it is not recommended to "procrastinate" here: you should not retrieve the data and leave it for later; instead, you should immediately indicate what you are going to do with the data, which is the exact purpose of the callback function (`visualize_geojson`). In this sense, getting the data and the handling of the data are declared in a same clause.
+
+The second part of the code defines the callback function `visualize_geojson`. There is only one long clause in this function, let's break down too.
+
+First, we use a `L.geoJSON` function to define a geoJSON layer. Inside this function, there are two basic parameters:
+- First and of course, it is the geoJSON data we retrieved from the URL;
+- Second is a object structure of all the settings of this layer:
+  - We actually only have one parameter to set, which is `pointToLayer`. The value of `pointToLayer` is a function `convert_point_to_symbol`. The function will define a projection FROM **each point in this point geoJSON layer** TO a **corresponding symbol on the map**, which is the reason we call this function `convert_point_to_symbol`.
+
+The last part defines the `convert_point_to_symbol` function. 
+- The funciton has two parameters: *feature* and *latlng*. You can imagine *feature* as the attribute table in GIS software and *latlng* as the coordinate of this point. This is the part that is pre-defined, although you can still name the two variables with different names, but the role, position and structure of the parameters are predefined.
+- The result returned by this function is a `L.circleMarker` object; this defines a point symbol. Similarly, this object is also defined by two parameters:
+  - Of course, you need to tell it where it is, which is the latlng parameter defined in the function
+  - Similar to the defining function of the `L.geoJSON` object, second parameter is also a structure of different parameters. We introduced these parameters when we added the red circle in the map, so we won't repeat here.
+
+Now, save your code and refresh your webpage, you should be able to see a lot of UFO witness (orange points) on your map!
+
+## Add an Click Event
+
+We talked about JS can act and react; so here we want to use try the reaction feature. A very convenient feature is to show a popup about the location you click on. How to do this? Try following code:
+
+```javascript
+var popup = L.popup();
+
+function onMapClick(event) {
+    popup.setLatLng(event.latlng)
+        .setContent("You clicked the map at " + event.latlng.toString())
+        .openOn(mymap);
+}
+
+mymap.on('click', onMapClick);
+```
+
+Let's break down:
+- First line defines an empty popup, which will be the popup showing up when we click on the map;
+- Second part defines a "reaction function", or event callback function if describing it in a more professional way. The function will be the action after we detect the event happening, which will be the *reaction*. This function actually has only one clause, but with three steps defined in the chaining manner:
+  - First, `setLatlng`, which will move the popup to the place you set. The location will be the location the user will click on, which hasn't happen as we speak. However, you can tell the code to wait for that, and capture and return the event data when the event happens. In that sense, the parameter of the callback function is `event`, which contains the latlng of the future clicking. So you want to set the 
+  - Second, `setContent`, which will write the content on the popup. Here we want to write the latlng we click on, but that will be a dynamic string. So we use `+ event.latlng.toString()` to attach it to the `You clicked the map at ` string.
+  - Finally, you should open the popup on our map so show it. Or you will never see it.
+ - Finally, `mymap.on('click', onMapClick);` sets the trigger condition. In natural language, this clause can be translated into: for `mymap`, on a user clicking anywhere, trigger the `onMapClick` function.
+
+
+Save, refresh, and explore!
+
+## Go online!
+
+Now since we have a working local version of your website, you can now push the changes to your GitHub repository and update the GitHub Pages to make it online! 
+
+To do this, go to GitHub Desktop and you will find that you will find you are making a lot of changes compared to the original version of the GitHub repo, which you just cloned from mine. There are two steps you need to do:
+- Commit your changes. In the sidebar you will see there are several changed files and there are two empty things you need to fill in: Summary and Description (optional). Summary basically tell the future yourself about what this change is for. Therefore, it is recommended that you write down: Finish the Frontend part. Of course, you can write down anything! Then, click *commit to main* to commit the changes. 
+- And then, click on fetch origin and push 
+
+## Conclusion
+This is the end of the frontend lab. You should be able to reproduce the same webmap I have in here:  
+
 
 # Data reference
 
