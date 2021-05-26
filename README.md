@@ -1,11 +1,12 @@
 # Full-stack Geo-visualization 101: How to Make Productive Webmaps
 
+Author: Luyu Liu, The Ohio State University.
 
 The ability to visualize large amounts of information in real time on interactive maps has never been more important for GI scientists and specialists.  Web-based and open-source platforms, such as the mapping library leaflet and the noSQL database MongoDB, are becoming more popular and useful for their real-time functionality. 
 
 This workshop will serve as an introductory technical training on full-stack geo-visualization. The workshop will include an overview of web-based platforms, mapping libraries, and the backend infrastructure. During this interactive and hands-on session, all participants will have a chance to build a small web map project with a provided data pack. The whole process of programming and debugging will be demonstrated. There will be time for both development and answering questions that participants may have.
 
-This workshop is organized by UCGIS on **Friday June 11, 2021, 2:00 - 4:00 pm EDT (11:00 am - 1:00 pm PDT)**.
+This workshop is organized by Luyu Liu as a part of UCGIS workshop 2021 series on **Friday June 11, 2021, 2:00 - 4:00 pm EDT (11:00 am - 1:00 pm PDT)**.
 
 # Prerequisites
 ## Skill Requirement
@@ -25,12 +26,10 @@ You can find [a full software checklist walkthrough video here](https://www.yout
 ### Frontend Part
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [GitHub Desktop](https://desktop.github.com/) and a GitHub account which can be created from [here](https://github.com/)
-- [Firefox Browser Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
-- Add [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to your firefox developer edition
 
-After you register and confirm your GitHub account, we need to fork [this repository](https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop) and click on the "fork" button to the right. Now you should have a repository with the same name but under your username. We will do everything in **your own forked repository**. Your own repo's URL should look like `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop`
+After you register and confirm your GitHub account, we need to fork [this repository](https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop) and click on the "fork" button to the right. Now you should have a repository with the same name but under your username, you are the owner of this forked repository. We will do everything in **your own forked repository**. Your own repo's URL should look like `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop`
 
-After cloned your repo, go to GitHub desktop and log in with your credential. We will need to add your repo to your local machine. To do this:
+After forking your repo, go to GitHub Desktop and log in with your credential. We will need to add your repo to your local machine. To do this:
 - Click on *file* in the banner menu.
 - Click *clone repository*.
 - Find the repo `UCGIS-Fullstack-Geovisualization-Workshop` in the list, or, search in the search bar.
@@ -53,6 +52,8 @@ You will need administrator privilege for the backend part.
 Right click on the Start button and open Windows Powershell. Type in `pip3 install eve` or `python3 -m pip install eve` to install the library. 
 - [MongoDB database](https://www.mongodb.com/try/download/community). MongoDB is a database, a very special one that we call it noSQL to distinguish it from traditional SQL databases such as postgreSQL. It is more flexible and faster for real-time data and naturally more suitable for web service. 
 - [MongoDB Compass](https://www.mongodb.com/try/download/compass). MongoDB is a free MongoDB database GUI; you can see the dataset in the MongoDB via MongoDB Compass, and you can also do some simple updating jobs in it. You should choose the Zip file version since you do not have to install it. All you need to do is unzip it somewhere and open `MongoDBCompass.exe` in the folder.
+- [Firefox Browser Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
+- Add [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to your firefox developer edition
 
 The MongoDB part is the most tricky part among the three. To test if you successfully install MongoDB, there are several ways to confirm:
 - Test it with your MongoDB Compass. Open MongoDB Compass and you should be seeing an *New Connection* window. DO NOT enter any address, directly click Connect button. If you can see *admin, config, and local* databases showing up, then you are in! 
