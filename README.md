@@ -52,7 +52,7 @@ You will need administrator privilege for the backend part.
 - EVE library in Python 3. 
 Right click on the Start button and open Windows Powershell. Type in `pip3 install eve` or `python3 -m pip install eve` to install the library. 
 - [MongoDB database](https://www.mongodb.com/try/download/community). MongoDB is a database, a very special one that we call it noSQL to distinguish it from traditional SQL databases such as postgreSQL. It is more flexible and faster for real-time data and naturally more suitable for web service. 
-- [Robo3T](https://robomongo.org/download). Robo3T is a free MongoDB database GUI; you can see the dataset in the MongoDB via Robo3T, and you can also do some simple updating jobs in it.
+- [MongoDB Compass](https://www.mongodb.com/try/download/compass). MongoDB is a free MongoDB database GUI; you can see the dataset in the MongoDB via MongoDB Compass, and you can also do some simple updating jobs in it.
 
 # Frontend Lab Instruction
 
@@ -353,11 +353,110 @@ Now since we have a working local version of your website, you can now push the 
 To do this, go to GitHub Desktop and you will find that you will find you are making a lot of changes compared to the original version of the GitHub repo, which you just cloned from mine. There are two steps you need to do:
 - Commit your changes. In the sidebar you will see there are several changed files and there are two empty things you need to fill in: Summary and Description (optional). Summary basically tell the future yourself about what this change is for. Therefore, it is recommended that you write down: Finish the Frontend part. Of course, you can write down anything! Then, click *commit to main* to commit the changes. 
 - And then, click on **push origin** to push your committed changes online
-- Wait several minutes and visit `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop/code` to see your final product. You are now officially online!
+- Wait several minutes and visit `https://[yourusername].github.io/UCGIS-Fullstack-Geovisualization-Workshop/code` to see your final product. You are now officially online!
 
 ## Conclusion
-This is the end of the frontend lab. You should be able to reproduce the same webmap I have in here:  `https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop/demo`.
+This is the end of the frontend part. You should be able to reproduce the same webmap I have in here:  `https://luyuliu.github.io/UCGIS-Fullstack-Geovisualization-Workshop/demo`. Ask anything!
 
+# Backend Part
+
+Sometimes we refer the website we made in the last part as **static website**: yes, you can still interact with it, you can still see animation, you can even change the data sources once a while. But the idea is that: there are not a lot of things a user can do dynamically. For example, you need to physically update the dataset whenever you need to change anything. 
+
+The primary reason is that there is no server and database support for the website. Notice that we do not actually rent a server in the frontend part and we use GitHub Pages to host our website, which can only support static website.
+
+In this part, we will set up a backend environment for our website we just made. We will use MongoDB as our database and Python-eve as our API support.
+
+## Prepare the environment
+
+You will need administrator privilege for the backend part.
+- [Python 3](https://www.python.org/downloads/). You can use any python 3 version. Therefore, if you have an older version, you do not have to reinstall your python. 
+- EVE library in Python 3. 
+Right click on the Start button and open Windows Powershell. Type in `pip3 install eve` or `python3 -m pip install eve` to install the library. 
+- [MongoDB database](https://www.mongodb.com/try/download/community). MongoDB is a database, a very special one that we call it noSQL to distinguish it from traditional SQL databases such as postgreSQL. It is more flexible and faster for real-time data and naturally more suitable for web service. 
+- [MongoDB Compass](https://www.mongodb.com/try/download/compass). MongoDB is a free MongoDB database GUI; you can see the dataset in the MongoDB via MongoDB Compass, and you can also do some simple updating jobs in it.
+
+The MongoDB part is the most tricky part among the three. To test if you successfully install MongoDB, there are several ways to confirm:
+- Test it with your MongoDB Compass. Open MongoDB Compass and you should be seeing an *New Connection* window. DO NOT enter any address, directly click Connect button. If you can see *admin, config, and local* databases showing up, then you are in! 
+- See the process with the task manager. Find whether there is a *MongoDB Database Server* background processes. If there is one, then you should be okay.
+- You can always uninstall and reinstall if it suddenly does not work!
+
+## Import the UFO Data in MongoDB
+We need to import the data to the MongoDB. Follow the instruction below:
+- Connect to the localhost connection with your MongoDB Compass
+- Click on the *CREATE DATABASE* button
+- Enter `UFO_witness` in *Database Nmae* and enter `2019_03` in *Collection Name*. This is the database and collection (a table) we will be working in. You should be seeing `UFO_witness` database showing up. 
+- Open it and click `2019_03` to enter the collection. Click on `ADD DATA` and choose *Import File*.
+- Import `/data/UFO.json` file (NOT UFO.geojson!) and choose JSON type.
+- You should be seeing 265 records imported.
+
+## Set Up an API to Serve the Data
+
+API is the bridge between frontend and the database. I already wrote a template for MongoDB databases with Python and Python eve, a very simple and efficient library. We do not want to go deep into the implementation, since even I have not touch it since I wrote it back in 2018, and it is working fine! Instead, I want to tell you how to set up the API and change the parameter.
+
+First, we would like to change the API's setting. You need to open `/api/run.py` in VSCode. We will have two parameters to change: *database name*, which will be the database you want to serve to the front end, and a port number, which can be any number as long as your other programs are not using that port. 
+
+In our case, our database will be `UFO_witness` and port number can be `13579`. You can use other numbers you like too.
+
+Second, after saving your `run.py` file, let's run it! Open a Windows Powershell (right click start button and you can find it) or a command prompt (search for "command"). Then, right click the run.py **tab** and select **"Copy Path"**. Then type `py X:\[your folder location]\UCGIS_2020\UCGIS-Fullstack-Geovisualization-Workshop\api\run.py`. You already copy the path, so you can just type `py ` (with a space) and ctrl+v.
+
+You should seeing something like this showing up in your console:
+```
+Setting files generated.
+ * Serving Flask app "eve" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://127.0.0.1:13579/ (Press CTRL+C to quit)
+```
+This means your API is running! To see what the data look like, you can try to access `http://127.0.0.1:13579/2019_03` (which will also be how we use the data in our webmap) in your browser and it will show a XML like structure to show your records in the `2019_03` table.
+
+## Change frontend to incorporate the backend
+
+The data feeded by the backend cannot be directly shown on the map yet. We need to convert the feeded data to a data structure with geoJSON format. 
+- First, copy and back up your HTML and JS files. Change the names of the copied files to `index_backend.html` and `main_backend.js` and change the clause that adds the JS file to HTML file to `<script src="main_backend.js"></script>`. Next, we will change the settings in the `main_backend.js` file.
+- Second, change the URL of the data to `http://127.0.0.1:13579/2019_03`.
+- Add `data = format_data(data);` to the front of the function `visualize_geojson`. After the change, the function should look like this:
+
+```javascript
+function visualize_geojson(data) {
+    data = format_data(data);
+    L.geoJSON(data, {
+        pointToLayer: convert_point_to_symbol
+    }).addTo(mymap);
+}
+```
+
+- Define function `format_data`. This function will transform the data in the database into a geoJSON structure so that the `L.geoJSON` can recognize the data. Add following code after the function `visualize_geojson` in `main_backend.js`.
+```javascript
+function format_data(data) {
+    var items = data._items;
+    var geoJSON = {
+        "type": "FeatureCollection",
+        "name": "UFO",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": null
+    }
+    geoJSON["features"] = items;
+    return geoJSON
+}
+```
+
+## See the Local Webmap 
+
+You may find that if you open the `index_backend.html` is not working in your normal browser. This is when we use Firefox developer edition. Because of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) restriction, we cannot directly access from the website (a local file) to the API URL (localhost). So, we need to open the [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to enable a cross-domain request.
+
+To do this, simply click on the plugin, which should be red in default. After you click it, it should be green now. Fresh and you should be able to see the same UFO witness layer showing up!
+
+## Conclusion
+
+We finish our backend part. The purpose of this part is to let you familiarize the database and how to set up an API to connect the database and the webmap. 
+
+There are a lot of potential applications for your own research:
+- You can build your research on MongoDB, which many people joke about it being literally an excel-equivalent. 
+- After you have a dynamic MongoDB database, which will be updated during your research, you can use the connection to visualize the data in real time. I use this feature a lot and I benefit a lot from it. If you are going to do a lot of visualization/ESDA, this will definitely save you a lot of time compared with using traditional GIS software.
+- If you have funding, you can build an online version of this website to promote your research results or your product. Of course, this will not be free since you will need a server and a database, but it could be worth the price.
+- It is very fast to deploy once you have your own template. If you have more than one project or you have a lot of similar projects, you can reuse your code.
 
 # Data reference
 
