@@ -352,10 +352,11 @@ Now since we have a working local version of your website, you can now push the 
 
 To do this, go to GitHub Desktop and you will find that you will find you are making a lot of changes compared to the original version of the GitHub repo, which you just cloned from mine. There are two steps you need to do:
 - Commit your changes. In the sidebar you will see there are several changed files and there are two empty things you need to fill in: Summary and Description (optional). Summary basically tell the future yourself about what this change is for. Therefore, it is recommended that you write down: Finish the Frontend part. Of course, you can write down anything! Then, click *commit to main* to commit the changes. 
-- And then, click on fetch origin and push 
+- And then, click on **push origin** to push your committed changes online
+- Wait several minutes and visit `https://github.com/[yourusername]/UCGIS-Fullstack-Geovisualization-Workshop/code` to see your final product. You are now officially online!
 
 ## Conclusion
-This is the end of the frontend lab. You should be able to reproduce the same webmap I have in here:  
+This is the end of the frontend lab. You should be able to reproduce the same webmap I have in here:  `https://github.com/luyuliu/UCGIS-Fullstack-Geovisualization-Workshop/demo`.
 
 
 # Data reference
