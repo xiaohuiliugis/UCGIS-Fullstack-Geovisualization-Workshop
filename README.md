@@ -33,7 +33,7 @@ After you register and confirm your GitHub account, we need to fork [this reposi
 After cloned your repo, go to GitHub desktop and log in with your credential. We will need to add your repo to your local machine. To do this:
 - Click on *file* in the banner menu.
 - Click *clone repository*.
-- Find the repo .`UCGIS-Fullstack-Geovisualization-Workshop` in the list, or, search in the search bar.
+- Find the repo `UCGIS-Fullstack-Geovisualization-Workshop` in the list, or, search in the search bar.
 - Specify the location. You can also just leave to the default.
 - Click *clone* button. Then the software will clone your repo to the local disk.
 - The GitHub Desktop will ask you *"how are you planning to use this fork?"*. You should answer *"For my own purposes"*.
@@ -52,7 +52,12 @@ You will need administrator privilege for the backend part.
 - EVE library in Python 3. 
 Right click on the Start button and open Windows Powershell. Type in `pip3 install eve` or `python3 -m pip install eve` to install the library. 
 - [MongoDB database](https://www.mongodb.com/try/download/community). MongoDB is a database, a very special one that we call it noSQL to distinguish it from traditional SQL databases such as postgreSQL. It is more flexible and faster for real-time data and naturally more suitable for web service. 
-- [MongoDB Compass](https://www.mongodb.com/try/download/compass). MongoDB is a free MongoDB database GUI; you can see the dataset in the MongoDB via MongoDB Compass, and you can also do some simple updating jobs in it.
+- [MongoDB Compass](https://www.mongodb.com/try/download/compass). MongoDB is a free MongoDB database GUI; you can see the dataset in the MongoDB via MongoDB Compass, and you can also do some simple updating jobs in it. You should choose the Zip file version since you do not have to install it. All you need to do is unzip it somewhere and open `MongoDBCompass.exe` in the folder.
+
+The MongoDB part is the most tricky part among the three. To test if you successfully install MongoDB, there are several ways to confirm:
+- Test it with your MongoDB Compass. Open MongoDB Compass and you should be seeing an *New Connection* window. DO NOT enter any address, directly click Connect button. If you can see *admin, config, and local* databases showing up, then you are in! 
+- See the process with the task manager. Find whether there is a *MongoDB Database Server* background processes. If there is one, then you should be okay.
+- You can always uninstall and reinstall if it suddenly does not work!
 
 # Frontend Lab Instruction
 
@@ -90,10 +95,10 @@ We now have an empty HTML file.
 ### Create JavaScript and CSS
 Likewise, right click on *code* and select *new file*. An input will show for you to enter the name of the new file. 
 
-Type *"main.js"* and *"style.css"*. The names of the files are not important, therefore, you can choose the name you like, but remember to change accordingly later. 
+Type *"main.js"* and *"style.css"*. The names of the files are not important, therefore, you can choose the name you like, but remember to change accordingly later in other parts of the code. 
 
 ## Populate HTML
-As we discussed in the minilecture, HTML is like *the bone* and the foundation of a webmap. When we are opening a webmap, we are actually opening a HTML file. 
+As we discussed in the minilecture, HTML is like *the bone* and the foundation of a webmap. When we are opening a webmap, we are actually opening an HTML file. 
 
 An HTML also holds the responsibilities of adding JavaScript and CSS libraries and your own scripts, which is the main focus of this section.
 
@@ -103,7 +108,7 @@ An HTML also holds the responsibilities of adding JavaScript and CSS libraries a
 Then we will first populate the head section. First, we will need to set some metadata for the webpage. Copy the code bolow in the `<head>` section.
 
 ```html
-<title>First web-map by [insert your name]</title>
+<title>First Web-map by [insert your name]</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
@@ -116,7 +121,7 @@ Then we will first populate the head section. First, we will need to set some me
 This is a large chunk! Let's break it down a little bit. See the comments for each clause, which is indicated by a `<!-- -->` tag. Notice that you can also copy the code below to your code 
 
 ```html
-<title>First web-map by [insert your name]</title> <!-- This defines the title name of the web page -->
+<title>First Web-map by [insert your name]</title> <!-- This defines the title name of the web page -->
 <meta charset="utf-8"> <!-- This defines your name -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
@@ -197,9 +202,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(mymap);
 ```
 
-This is clearly a long clause! But you do not really need digest all of them in one take. But let's just break it down:
+This is definitely a long clause! But you do not really need digest all of them in one take. But let's just break it down:
 - `L.tileLayer` is the function to define a tile layer for Leaflet, which is indicated by *"L"*. Inside this function, there are two parameters:
-  - First is the URL of the base layer. You do not have to understand this.
+  - First is the URL of the base layer. You do not have to understand this. You usually copy it from somewhere else, like a map service or other open source projects.
   - Second is a parameter object structure that contains many other parameters. Again, you do not have understand all of them.
     - maxZoom sets the maximum zoom level.
     - attribution sets the attribution information.
@@ -208,7 +213,7 @@ This is clearly a long clause! But you do not really need digest all of them in 
     - zoomOffset sets the zoom number used in tile URLs will be offset with this value.
 - `addTo(mymap)` will add the layer to the Leaflet map object so that the layer can show on the map.
 
-Till here, we already have a webmap with base layer that you can play with! You should open the HTML file we just created in the Firefox browser developer edition. To do this, right click on the *index.html* file and select *"open with"* Firefox browser developer edition. Try zooming in, out, and panning!
+Till here, we already have a webmap with base layer that you can play with! You should open the HTML file we just created in the Firefox browser developer edition (actually, other browsers will also work). To do this, right click on the *index.html* file and select *"open with"* Firefox browser developer edition. Try zooming in, out, and panning!
 
 ## Adding three basic symbologies
 Base layer is definitely not enough. A very important job for webmap is to visualize vector symbologies and show relevant attributes. Next. we are going to show you how to add three basic symbologies to the map.
@@ -250,16 +255,16 @@ Only the circle is kind of special if you noticed. `L.circle` has three paramete
 - fillColor is the **fill color**, literally. 
 - fillOpacity is the transparency of the fill color.
 
-There are more options available that you can change; check [here](https://leafletjs.com/reference-1.7.1.html#circle).
+There are more options available that you can change; check [here](https://leafletjs.com/reference-1.7.1.html#circle) to see the documentation.
 
 ## Adding a geoJSON layer
 
-Clearly, it is not sustainable to add every symbology manually or direcly in the JS code. We will need a more efficient way to add data. geoJSON is a very readable (relatively) and accessible geodata format. It is essentially a [JSON file](https://en.wikipedia.org/wiki/JSON), but for geographic information; therefore, you can directly visualize it in most (especially open-source) GIS software.
+Clearly, it is not sustainable to add every symbology manually or direcly in the JS code. We will need a more efficient way to add data. geoJSON is a very readable (relatively) and accessible geodata format. It is essentially a [JSON file](https://en.wikipedia.org/wiki/JSON) but for geographic information; therefore, you can directly visualize it in most (especially open-source) GIS software.
 
 ### Preparing your dataset
 First let's talk about data. I already prepared a point geoJSON in the */data* folder in your repo, which shows the UFO witness data in the US during 2019/03. 
 
-However, a local dataset is not accessible for online users. We will need move this local dataset to online so that our website can use this. Also remember that **CORS restrition** that will not allow us to access to a different domain, so we will need host the dataset in our own domain, which is the same domain where we will host our website. Clearly, GitHub page is a good choice.
+However, a local dataset is not accessible for online users. We will need move this local dataset to online so that our website can use this. Also remember that [**CORS restrition**](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) that will not allow us to access to a different domain, so we will need host the dataset in our own domain, which is the same domain where we will host our website. Thankfully, GitHub page is a good choice for it satisfies all of these requirements and it is free.
 
 ### Setting your GitHub page
 If you have not done this, you should go to your own repo's URL (should look like `https://github.com/[insert your username]/UCGIS-Fullstack-Geovisualization-Workshop/settings/pages`). You should see the GitHub Pages setting. If not, you can also go to the main page of your repo and click *"Settings"* and go to "*Pages*". 
@@ -335,7 +340,7 @@ function onMapClick(event) {
 mymap.on('click', onMapClick);
 ```
 
-Let's break down:
+Let's break it down again:
 - First line defines an empty popup, which will be the popup showing up when we click on the map;
 - Second part defines a "reaction function", or event callback function if describing it in a more professional way. The function will be the action after we detect the event happening, which will be the *reaction*. This function actually has only one clause, but with three steps defined in the chaining manner:
   - First, `setLatlng`, which will move the popup to the place you set. The location will be the location the user will click on, which hasn't happen as we speak. However, you can tell the code to wait for that, and capture and return the event data when the event happens. In that sense, the parameter of the callback function is `event`, which contains the latlng of the future clicking. So you want to set the 
@@ -362,7 +367,7 @@ This is the end of the frontend part. You should be able to reproduce the same w
 
 Sometimes we refer the website we made in the last part as **static website**: yes, you can still interact with it, you can still see animation, you can even change the data sources once a while. But the idea is that: there are not a lot of things a user can do dynamically. For example, you need to physically update the dataset whenever you need to change anything. 
 
-The primary reason is that there is no server and database support for the website. Notice that we do not actually rent a server in the frontend part and we use GitHub Pages to host our website, which can only support static website.
+The primary reason is that there are no server and database support for the website. Notice that we do not actually rent a server in the frontend part and we use GitHub Pages to host our website, which can only support static website.
 
 In this part, we will set up a backend environment for our website we just made. We will use MongoDB as our database and Python-eve as our API support.
 
@@ -391,7 +396,7 @@ We need to import the data to the MongoDB. Follow the instruction below:
 
 ## Set Up an API to Serve the Data
 
-API is the bridge between frontend and the database. I already wrote a template for MongoDB databases with Python and Python eve, a very simple and efficient library. We do not want to go deep into the implementation, since even I have not touch it since I wrote it back in 2018, and it is working fine! Instead, I want to tell you how to set up the API and change the parameter.
+API is the bridge between frontend and the database. I already wrote a template for MongoDB databases with Python and Python eve, a very simple and efficient library for MongoDB RESTful API. We do not want to go deep into the implementation, since even I have not touch it since I wrote it back in 2018, and it is working fine! Instead, I want to focus on how to set up the API and change the parameter, a.k.a how to use it.
 
 First, we would like to change the API's setting. You need to open `/api/run.py` in VSCode. We will have two parameters to change: *database name*, which will be the database you want to serve to the front end, and a port number, which can be any number as long as your other programs are not using that port. 
 
@@ -409,7 +414,7 @@ Setting files generated.
  * Debug mode: off
  * Running on http://127.0.0.1:13579/ (Press CTRL+C to quit)
 ```
-This means your API is running! To see what the data look like, you can try to access `http://127.0.0.1:13579/2019_03` (which will also be how we use the data in our webmap) in your browser and it will show a XML like structure to show your records in the `2019_03` table.
+This means your API is running! To see what the data look like, you can try to access `http://127.0.0.1:13579/2019_03` (which will also be how we use the data in our webmap) in your browser and it will show an XML-esque structure to show your records in the `2019_03` collection.
 
 ## Change frontend to incorporate the backend
 
@@ -441,16 +446,17 @@ function format_data(data) {
     return geoJSON
 }
 ```
+The code will add a geoJSON format head in front of the data we retrieved from the database. It is essentially a process to restore the geoJSON structure.
 
 ## See the Local Webmap 
 
-You may find that if you open the `index_backend.html` is not working in your normal browser. This is when we use Firefox developer edition. Because of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) restriction, we cannot directly access from the website (a local file) to the API URL (localhost). So, we need to open the [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to enable a cross-domain request.
+You may find that if you open the `index_backend.html` is not working in your normal browser. This is when we use Firefox developer edition. Because of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) restriction, we cannot directly access from the website (a local file) to the API URL (localhost). So, we need to open the [CORS Everywhere](https://addons.mozilla.org/en-US/firefox/addon/cors-everywhere/) plugin to enable a cross-domain request (only in our local browser).
 
 To do this, simply click on the plugin, which should be red in default. After you click it, it should be green now. Fresh and you should be able to see the same UFO witness layer showing up!
 
 ## Conclusion
 
-We finish our backend part. The purpose of this part is to let you familiarize the database and how to set up an API to connect the database and the webmap. 
+We finish our backend part. The purpose of this part is to let you familiarize the MongoDB database and how to set up an API to connect the database and the webmap. 
 
 There are a lot of potential applications for your own research:
 - You can build your research on MongoDB, which many people joke about it being literally an excel-equivalent. 
@@ -460,7 +466,7 @@ There are a lot of potential applications for your own research:
 
 # Data reference
 
-The UFO witness data are downloaded from [here](https://data.world/timothyrenner/ufo-sightings). The geoJSON is visualized and exported by QGIS; only data in the US and during 2019/03 were selected.
+The UFO witness data are downloaded from [here](https://data.world/timothyrenner/ufo-sightings). The geoJSON is visualized and exported by QGIS; only records with CA/US state names and during 2019/03 were selected.
 
 <style>
 h1 { counter-reset: h2counter; }
