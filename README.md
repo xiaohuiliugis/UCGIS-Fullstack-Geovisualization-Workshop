@@ -21,7 +21,7 @@ This workshop is organized by Luyu Liu as a part of UCGIS workshop 2021 series o
 - If you want to finish the back-end part, you will need a PC with the administrator privilege.
 
 ## Software Requirement
-You can find [a full software checklist walkthrough video here](https://www.youtube.com/watch?v=Ii1PSJVzwNo).
+You can find [a full software checklist walkthrough video here](https://www.youtube.com/playlist?list=PLVfGHTlLq7scaH6N7KkCprvwMsZGyB_jk).
 
 ### Frontend Part
 - [Visual Studio Code](https://code.visualstudio.com/download)
